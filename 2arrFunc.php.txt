@@ -1,0 +1,206 @@
+Array Functions
+
+<?php
+
+//1
+$color = array('white', 'green', 'red') ;
+echo "<br>1.";
+echo "<br> INPUT: ";
+print_r($color);
+echo "<br> OUTPUT: ";
+$count=count($color);
+$i=1;
+foreach ($color as $new_arr)
+{
+	if($count>$i){
+		echo "$new_arr, ";
+	}
+	else{ echo "$new_arr";}
+	$i=$i+1;
+}
+sort($color);
+
+foreach ($color as $new_arr)
+{
+echo "<br><br>.$new_arr";
+}
+
+//2
+$x = array(1, 2, 3, 4, 5);
+echo "<br><br>2.";
+echo "<br>INPUT: ";
+print_r($x);
+echo "<br>After deleting 2nd element";
+echo "<br> OUTPUT: ";
+unset($x[1]);
+print_r($x);
+echo "<br>After deleting last element";
+echo "<br> OUTPUT: ";
+array_pop($x);
+print_r($x);
+
+
+//3
+$color = array(4 => 'white', 6 => 'green', 11=> 'red'); 
+echo "<br><br>3.";
+echo "<br>INPUT: ";
+print_r($color);
+echo "<br> PHP script to get the first element of the above array.";
+echo "<br> OUTPUT: ".reset($color);
+
+//4
+$Original_array =array(1, 2, 3, 4, 5);
+echo "<br><br>4.";
+echo "<br>INPUT: ";
+print_r($Original_array);
+echo "<br>  After inserting '$' the array.";
+$insert="$";
+array_splice($Original_array,3,0,$insert);
+echo "<br> OUTPUT: ";
+print_r($Original_array);
+foreach ($Original_array as $new_arr)
+{
+echo "$new_arr ";
+}
+
+//5
+$associative_array =array("Sophia"=>"31","Jacob"=>"41","William"=>"39","Ramesh"=>"40");
+echo "<br><br>5.";
+echo "<br>INPUT: ";
+print_r($associative_array);
+echo "<br> OUTPUT: ";
+echo "<br> a) ascending order sort by value: ";
+asort($associative_array);
+print_r($associative_array);
+echo "<br> b) ascending order sort by Key: ";
+ksort($associative_array);
+print_r($associative_array);
+echo "<br> c) descending order sorting by Value: ";
+arsort($associative_array);
+print_r($associative_array);
+echo "<br> d) descending order sorting by Key: ";
+krsort($associative_array);
+print_r($associative_array);
+
+
+//6
+$Recorded_temperatures =array(78, 60, 62, 68, 71, 68, 73, 85, 66, 64, 76, 63, 75, 76, 73, 68, 62, 73, 72, 65, 74, 62, 62, 65, 64, 68, 73, 75, 79, 73);
+echo "<br><br>6.";
+echo "<br>INPUT: ";
+foreach ($Recorded_temperatures as $new_arr)
+{
+echo "$new_arr ";
+}
+echo "<br>After removing duplicates";
+foreach ($Recorded_temperatures as $new)
+{
+echo "$new ";
+}
+echo "<br> OUTPUT: ";
+$total=array_sum($Recorded_temperatures);
+$count=count($Recorded_temperatures);
+$avg=$total/$count;
+echo "<br> Average Temperature is: ".($avg);
+echo "<br> List of five lowest temperatures : ";
+sort($Recorded_temperatures);
+for ($i=0; $i< 5; $i++)
+{ 
+echo $Recorded_temperatures[$i].", ";
+}
+echo "<br> List of five highest temperatures : ";
+rsort($Recorded_temperatures);
+for ($i=0; $i< 5; $i++)
+{ 
+echo $Recorded_temperatures[$i].", ";
+}
+
+
+//7    //also by each func
+$Sample_arrays = array("abcd","abc","de","hjjj","g","wer");
+echo "<br><br>7.";
+echo "<br>INPUT: ";
+print_r($Sample_arrays);
+$new_arr=array_map('strlen',$Sample_arrays);
+echo "<br> The shortest array length is: ".min($new_arr);
+echo "<br> The longest array length is: ".max($new_arr);
+
+
+//8
+$color = array(4 => 'white', 6 => 'green', 11=> 'red'); 
+echo "<br><br>8.";
+echo "<br>INPUT: ";
+print_r($color);
+echo "<br> PHP script to get the largest key in an array";
+$n=array_keys($color);
+echo "<br> OUTPUT: keys: ";
+print_r($n);
+echo "<br> The largest key in an array: ".max($n);
+
+//9
+$Record=array(78, 60, 62, 68, 71,0, 68, -3, -2, -1, 0, 1, 2, 3,-556);
+echo "<br><br> 9.";
+echo "<br>INPUT: ";
+print_r($Record);
+echo "<br>  PHP function that returns the lowest integer that is not 0.";
+$res=minValue($Record);
+echo "<br> OUTPUT: ".$res;
+
+function minValue($Record){
+	$new_arr=array_diff($Record,["0"]);
+	sort($new_arr);
+	$minInteger=$new_arr[0];
+	return $minInteger;
+}
+
+//10. Write a PHP script to print "second" and Red from the following array
+$color = array ( "color" => array ( "a" => "Red", "b" => "Green", "c" => "White"), "numbers" => array ( 1, 2, 3, 4, 5, 6 ), "holes" => array ( "First", 5 => "Second", "Third"));
+echo "<br><br>10.";
+echo "<br>INPUT: ";
+print_r($color);
+echo "<br> Write a PHP script to print second and Red from the following array";
+echo reset(reset($color));
+echo "<br> OUTPUT:";
+echo $color["holes"][5];
+
+
+//11
+$all_month=["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"];
+echo "<br><br>10.";
+echo "Please select month";
+//form------
+echo "<form method='POST'>";
+echo "<select name='selected'>";
+   echo  "<option  disabled selected>Choose your month</option>";
+   foreach($all_month as $month){
+	 echo "<option>". $month."</option>";
+   }
+echo "</select><br><br>";
+echo "<input type=\"submit\" name=\"btn_submit\">";
+echo ' </form>';
+//form------
+
+if(isset($_POST["selected"])){
+	$input=$_POST['selected'];
+	if(empty($input) || $input==null){
+		echo "INVALID! Please select month";
+	}
+	else{
+		$day=getdate();
+		$year=$day['year'];
+		if($input=="january" ||$input=="march" || $input=="may" || $input=="july" || $input=="august" || $input=="october" || $input=="december" ){
+			echo "31 Days";
+		}
+		else if( $input=="april" || $input=="june" || $input=="november" || $input=="september"){
+			echo "30 Days";
+		}
+		else if($input=="february" && $year & 400==0 || $year & 100==0  || $year & 4==0){
+			echo "29 Days";
+		}
+		else{
+			echo "28 Days";
+	      }
+
+	}
+}
+
+?>
